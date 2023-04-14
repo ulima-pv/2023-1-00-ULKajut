@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         p1.IndexCorrecta = 1;
 
         Pregunta p2 = new Pregunta();
-        p2.Texto = "Esta es la pregunta 1?";
+        p2.Texto = "Esta es la pregunta 2?";
         p2.Opciones.Add("OPCION 1");
         p2.Opciones.Add("OPCION 2");
         p2.Opciones.Add("OPCION 3");
@@ -64,5 +64,18 @@ public class GameManager : MonoBehaviour
     {
         Pregunta pregunta = listaPreguntas[index];
         TextoPregunta.text = pregunta.Texto;
+
+        TextMeshProUGUI textoBoton1 = 
+            ButOpcion1.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        textoBoton1.text = pregunta.Opciones[0];
+        TextMeshProUGUI textoBoton2 = 
+            ButOpcion2.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        textoBoton2.text = pregunta.Opciones[1];
+        TextMeshProUGUI textoBoton3 = 
+            ButOpcion3.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        textoBoton3.text = pregunta.Opciones[2];
+        TextMeshProUGUI textoBoton4 = 
+            ButOpcion4.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        textoBoton4.text = pregunta.Opciones[3];
     }
 }
