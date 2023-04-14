@@ -28,12 +28,27 @@ public class GameManager : MonoBehaviour
     private List<Pregunta> listaPreguntas;
     private int index = 0;
 
+    private float timer = 20f;
+
     private void Start()
     {
         // 1. Crear las preguntas
         CrearPreguntas();
         // 2. Cargar pregunta inicial
         CargarPregunta(0);
+    }
+
+    private void Update()
+    {
+        TextoTimer.text = Mathf.RoundToInt(timer).ToString();
+
+        timer -= Time.deltaTime;
+
+        if (timer < 0f)
+        {
+            // Acabo el tiempo
+            TextoTimer.text = "-";
+        }
     }
 
     private void CrearPreguntas()
@@ -65,17 +80,64 @@ public class GameManager : MonoBehaviour
         Pregunta pregunta = listaPreguntas[index];
         TextoPregunta.text = pregunta.Texto;
 
-        TextMeshProUGUI textoBoton1 = 
+        TextMeshProUGUI textoBoton1 =
             ButOpcion1.transform.Find("Text").GetComponent<TextMeshProUGUI>();
         textoBoton1.text = pregunta.Opciones[0];
-        TextMeshProUGUI textoBoton2 = 
+        TextMeshProUGUI textoBoton2 =
             ButOpcion2.transform.Find("Text").GetComponent<TextMeshProUGUI>();
         textoBoton2.text = pregunta.Opciones[1];
-        TextMeshProUGUI textoBoton3 = 
+        TextMeshProUGUI textoBoton3 =
             ButOpcion3.transform.Find("Text").GetComponent<TextMeshProUGUI>();
         textoBoton3.text = pregunta.Opciones[2];
-        TextMeshProUGUI textoBoton4 = 
+        TextMeshProUGUI textoBoton4 =
             ButOpcion4.transform.Find("Text").GetComponent<TextMeshProUGUI>();
         textoBoton4.text = pregunta.Opciones[3];
+    }
+
+    public void SeleccionarOpcion(int num)
+    {
+        Pregunta pregunta = listaPreguntas[index];
+        Color color;
+        if (pregunta.IndexCorrecta == num)
+        {
+            // Selecciono correctamente
+            color = Color.green;
+        }
+        else
+        {
+            color = Color.red;
+        }
+
+        switch (num)
+        {
+            case 0:
+                var colors = ButOpcion1.colors;
+                colors.normalColor = color;
+                colors.highlightedColor = color;
+                colors.selectedColor = color;
+                ButOpcion1.colors = colors;
+                break;
+            case 1:
+                colors = ButOpcion2.colors;
+                colors.normalColor = color;
+                colors.highlightedColor = color;
+                colors.selectedColor = color;
+                ButOpcion2.colors = colors;
+                break;
+            case 2:
+                colors = ButOpcion3.colors;
+                colors.normalColor = color;
+                colors.highlightedColor = color;
+                colors.selectedColor = color;
+                ButOpcion3.colors = colors;
+                break;
+            case 3:
+                colors = ButOpcion4.colors;
+                colors.normalColor = color;
+                colors.highlightedColor = color;
+                colors.selectedColor = color;
+                ButOpcion4.colors = colors;
+                break;
+        }
     }
 }
